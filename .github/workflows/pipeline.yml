@@ -3,7 +3,7 @@ name: Google Cloud Run Deploy
 on:
   push:
     branches:
-      - main
+      - feature/pipeline
 
 env:
   PROJECT_ID: hackathon-7aso-grupo-05
@@ -69,20 +69,16 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.1
 
-      # Build and push image to Google Container Registry
-      - name: Build & Push
-        run: |-
-          gcloud builds submit \
-            --quiet \
-            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:latest"
-        working-directory: .docker
+      - name: Build Docker image
+        run: |
+          docker build . --tag us.gcr.io/$PROJECT_ID/$SERVICE_NAME
 
-      # Deploy image to Cloud Run
-      - name: Deploy GCR
-        run: |-
-          gcloud run deploy "$SERVICE_NAME" \
-            --quiet \
-            --region "$RUN_REGION" \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:latest" \
-            --platform "managed" \
-            --allow-unauthenticated
+      - name: Configure Docker to use Google Cloud Platform
+        run: "gcloud auth configure-docker --quiet"
+
+      - name: Push image to Google Cloud Container Registry
+        run: docker push us.gcr.io/$PROJECT_ID/$SERVICE_NAME
+      - name: Install beta commands and deploy on cloud run
+        run: |
+          gcloud components install beta --quiet
+          gcloud beta run deploy $SERVICE_NAME --quiet --image us.gcr.io/$PROJECT_ID/$SERVICE_NAME --project $PROJECT_ID --region $RUN_REGION --platform managed
