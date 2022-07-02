@@ -13,7 +13,7 @@ COPY --from=react-build /app/build /usr/share/nginx/html
 
 ENV PORT 8080
 ENV HOST 0.0.0.0
-ENV REACT_APP_BACKEND_URL https://backend-app-zm5xght3mq-uc.a.run.app/
+ENV REACT_APP_BACKEND_URL https://spotmusic-backend-zm5xght3mq-uc.a.run.app/
 ENV REACT_APP_ONESIGNAL_KEY licensekey
 
 EXPOSE 8080
