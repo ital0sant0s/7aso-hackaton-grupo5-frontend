@@ -3,7 +3,7 @@ name: Google Cloud Run Deploy
 on:
   push:
     branches:
-      - feature/pipeline
+      - main
 
 env:
   PROJECT_ID: hackathon-7aso-grupo-05
