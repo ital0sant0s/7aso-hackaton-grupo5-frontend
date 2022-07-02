@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: '14.x'
 
+      - name: Add One Signal Key
+        run: |
+          sed -i "s/licensekey/${{ secrets.ONESIGNAL_KEY }}/g" Dockerfile
+
       - name: Use cached node_modules
         uses: actions/cache@master
         with:
