@@ -6,7 +6,7 @@ function App() {
    	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		fetch(`${process.env.BACKEND_URL}`)
+		fetch(`${process.env.REACT_APP_BACKEND_URL}`)
 		 .then((res) => res.json())
       		 .then((result) => setData(result))
       		 .catch((err) => console.log("error"));

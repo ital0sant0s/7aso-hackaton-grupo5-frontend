@@ -13,6 +13,6 @@ COPY --from=react-build /app/build /usr/share/nginx/html
 
 ENV PORT 8080
 ENV HOST 0.0.0.0
-ENV BACKEND_URL https://backend-app-zm5xght3mq-uc.a.run.app/
+ENV REACT_APP_BACKEND_URL https://backend-app-zm5xght3mq-uc.a.run.app/
 EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
