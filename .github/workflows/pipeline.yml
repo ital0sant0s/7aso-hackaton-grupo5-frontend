@@ -69,7 +69,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.1
 
-       name: Build Docker image
+      - name: Build Docker image
         run: |
           docker build . --tag eu.gcr.io/$PROJECT_ID/$SERVICE_NAME
 
@@ -77,8 +77,8 @@ jobs:
           run: "gcloud auth configure-docker --quiet"
 
       - name: Push image to Google Cloud Container Registry
-        run: docker push eu.gcr.io/$PROJECT_ID/$SERVICE_NAME
+          run: docker push eu.gcr.io/$PROJECT_ID/$SERVICE_NAME
       - name: Install beta commands and deploy on cloud run
-        run: |
+          run: |
           gcloud components install beta --quiet
           gcloud beta run deploy $SERVICE_NAME --quiet --image us.gcr.io/$PROJECT_ID/$SERVICE_NAME --project $PROJECT_ID --region $REGION_NAME --platform managed
