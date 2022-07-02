@@ -81,4 +81,4 @@ jobs:
       - name: Install beta commands and deploy on cloud run
         run: |
           gcloud components install beta --quiet
-          gcloud beta run deploy $SERVICE_NAME --quiet --image us.gcr.io/$PROJECT_ID/$SERVICE_NAME --project $PROJECT_ID --region $REGION_NAME --platform managed
+          gcloud beta run deploy $SERVICE_NAME --quiet --image us.gcr.io/$PROJECT_ID/$SERVICE_NAME --project $PROJECT_ID --region $RUN_REGION --platform managed
